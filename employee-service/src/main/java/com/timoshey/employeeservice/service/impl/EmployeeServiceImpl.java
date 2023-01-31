@@ -10,10 +10,7 @@ import com.timoshey.employeeservice.service.ApiClient;
 import com.timoshey.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
