@@ -16,6 +16,7 @@ public class EmployeeDto {
     private String lastName;
     private String email;
     private String departmentCode;
+    private String organizatonCode;
 
     public static Employee mapToEmployee(EmployeeDto employeeDto){
         return new Employee(
@@ -23,7 +24,8 @@ public class EmployeeDto {
                 employeeDto.getFirstName(),
                 employeeDto.getLastName(),
                 employeeDto.getEmail(),
-                employeeDto.getDepartmentCode()
+                employeeDto.getDepartmentCode(),
+                employeeDto.getOrganizatonCode()
         );
     }
 
@@ -33,7 +35,8 @@ public class EmployeeDto {
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getEmail(),
-                employee.getDepartmentCode()
+                employee.getDepartmentCode(),
+                employee.getOrganizatonCode()
         );
     }
 }

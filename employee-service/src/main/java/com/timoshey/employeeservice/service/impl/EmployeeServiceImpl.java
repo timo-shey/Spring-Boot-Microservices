@@ -3,6 +3,7 @@ package com.timoshey.employeeservice.service.impl;
 import com.timoshey.employeeservice.dto.ApiResponseDto;
 import com.timoshey.employeeservice.dto.DepartmentDto;
 import com.timoshey.employeeservice.dto.EmployeeDto;
+import com.timoshey.employeeservice.dto.OrganizationDto;
 import com.timoshey.employeeservice.entity.Employee;
 import com.timoshey.employeeservice.exception.EmployeeNotFoundException;
 import com.timoshey.employeeservice.repository.EmployeeRepository;
@@ -33,6 +34,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee savedEmployee = employeeRepository.save(employee);
         return EmployeeDto.mapToEmployeeDto(savedEmployee);
     }
+
+
 //    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     @Override
@@ -57,11 +60,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 //        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
+        OrganizationDto organizationDto = webClient.get()
+                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizatonCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
+
         EmployeeDto employeeDto = EmployeeDto.mapToEmployeeDto(employee);
 
         ApiResponseDto apiResponseDto = new ApiResponseDto();
         apiResponseDto.setEmployeeDto(employeeDto);
         apiResponseDto.setDepartmentDto(departmentDto);
+        apiResponseDto.setOrganizationDto(organizationDto);
 
         return apiResponseDto;
     }
